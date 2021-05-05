@@ -1,5 +1,6 @@
 FROM cadriel/fluidd
 
-COPY ./etc_nginx/conf.d /etc/nginx/conf.d
-COPY ./etc_nginx/nginx.conf /etc/nginx
+COPY ./common_vars.conf /etc/nginx/conf.d
+COPY ./upstreams.conf /etc/nginx/conf.d
+COPY ./nginx.conf /etc/nginx
 # COPY ./html /usr/share/nginx/html
