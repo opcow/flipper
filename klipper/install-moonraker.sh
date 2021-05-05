@@ -5,7 +5,7 @@ set -euxo pipefail
 : ${MOONRAKER_REPO:="https://github.com/Arksine/moonraker"}
 : ${MOONRAKER_PATH:="${KLIPPER_HOME}/moonraker"}
 : ${MOONRAKER_VENV_PATH:="${KLIPPER_HOME}/venv/moonraker"}
-: ${MOORAKER_PKGS="patch python3-dev py3-libgpiod zlib-dev jpeg-dev"}
+: ${MOORAKER_PKGS="rsync patch python3-dev py3-libgpiod zlib-dev jpeg-dev"}
 
 if [ $(id -u) = 0 ]; then
     echo "This script must not run as root"
