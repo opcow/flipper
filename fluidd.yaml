@@ -7,29 +7,9 @@ services:
     privileged: true
     volumes:
       - /dev/serial:/dev/serial
-      # - /lusr:/usr
-    # devices:
-    #   - "/dev/serial/by-id/usb-Klipper_lpc1769_20F0FF0B28813AAF13826A5CC02000F5-if00:/dev/serial/by-id/usb-Klipper_lpc1769_20F0FF0B28813AAF13826A5CC02000F5-if00"
-
-
-    # entrypoint: /bin/bash
     entrypoint: /docker-entrypoint.sh
 
   fluidd:
-    image: my-nginx
+    image: my-fluidd
     ports:
       - 80:80
-
-    # stdin_open: true # docker run -i
-    # tty: true        # docker run -t
-
-#    privileged: true
-
-# volumes:
-#   serial:
-# /dev:
-#  bin:
-#  sbin:
-#  etc:
-#  home:
-#  var:
