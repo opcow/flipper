@@ -13,3 +13,5 @@ services:
     image: my-fluidd
     ports:
       - 80:80
+    environment:
+      - UPSTREAM=192.168.4.9:7125
