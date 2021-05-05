@@ -36,8 +36,6 @@ RUN printf "#!/bin/sh\n${KLIPPER_HOME}/venv/moonraker/bin/python ${KLIPPER_HOME}
 RUN chmod +x run-moonraker.sh
 #############################
 
-# RUN apt-get install -y -q procps net-tools nano
-
 COPY --chown=${KLIPPER_USER}:${KLIPPER_USER} ./klipper_config ${CONFIG_DIR}
 RUN sed -i -e "s|serial: <serial-dev>|serial: ${PRITNER_PORT}|" ${CONFIG_DIR}/printer.cfg
 RUN sed -i -E 's|(config_path: )(.*)$|\1'${KLIPPER_CONFIG_PATH}'|' ${CONFIG_DIR}/moonraker.conf
