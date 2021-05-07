@@ -11,7 +11,7 @@ if [ $(id -u) = 0 ]; then
     exit 1
 fi
 
-test -d ${MOONRAKER_PATH} || git clone ${MOONRAKER_REPO} ${MOONRAKER_PATH}
+[ -d ${MOONRAKER_PATH} ] || git clone ${MOONRAKER_REPO} ${MOONRAKER_PATH}
 virtualenv -p python3 $MOONRAKER_VENV_PATH
 
 patch ${MOONRAKER_PATH}/moonraker/components/update_manager.py update-mgr.patch
