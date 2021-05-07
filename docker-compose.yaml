@@ -1,0 +1,17 @@
+version: "3"
+services:
+  klipper:
+    image: my-klipper
+    ports:
+      - 7125:7125
+    privileged: true
+    volumes:
+      - /dev/serial:/dev/serial
+    entrypoint: /docker-entrypoint.sh
+
+  fluidd:
+    image: my-fluidd
+    ports:
+      - 80:80
+    environment:
+      - UPSTREAM=192.168.4.9:7125
