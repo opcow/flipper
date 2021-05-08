@@ -4,15 +4,14 @@ ENV KLIPPER_USER=klipper
 ENV KLIPPER_HOME=/opt/${KLIPPER_USER}
 ENV GCODE_PATH=${KLIPPER_HOME}/gcode
 
-RUN apk add --update sudo bash git alpine-sdk python3-dev python3 py3-virtualenv python2 python2-dev libffi-dev
+RUN apk add --update bash git alpine-sdk python3-dev python3 py3-virtualenv python2 python2-dev libffi-dev
 ###### setup user ######
 RUN adduser ${KLIPPER_USER} -D
-RUN echo '%wheel ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/wheel
-RUN adduser ${KLIPPER_USER} wheel
 ########################
 
 USER klipper
 WORKDIR ${KLIPPER_HOME}
+
 ###### setup klipper ######
 COPY --chown=${KLIPPER_USER}:${KLIPPER_USER} ./home_files ${KLIPPER_HOME}
 RUN chmod +x ${KLIPPER_HOME}/install-klipper.sh
@@ -21,8 +20,14 @@ RUN printf "#!/bin/bash\n${KLIPPER_HOME}/venv/klippy/bin/python ${KLIPPER_HOME}/
 RUN chmod +x run-klipper.sh
 ###########################
 
+USER root
+RUN mkdir /config
+RUN chown ${KLIPPER_USER}:${KLIPPER_USER} /config
+RUN mkdir /gcode
+RUN chown ${KLIPPER_USER}:${KLIPPER_USER} /gcode
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
-RUN sudo chmod +x /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
 EXPOSE 7125
 WORKDIR /
+USER klipper

@@ -1,6 +1,3 @@
 #!/bin/sh
-if [ ! -f "/config/moonraker.conf" ]; then
-  sudo chmod 777 /config
-  cp /opt/moonraker/moonraker.conf /config
-fi
+[ -f "/config/moonraker.conf" ] || cp /opt/moonraker/moonraker.conf /config
 exec /opt/moonraker/run-moonraker.sh
