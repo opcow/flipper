@@ -29,6 +29,5 @@ RUN chown ${KLIPPER_USER}:${KLIPPER_USER} /gcode
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
-EXPOSE 7125
 WORKDIR /
 USER klipper
