@@ -14,9 +14,9 @@ services:
     entrypoint: /docker-entrypoint.sh
   moonraker:
     image: flipper/moonraker
+    restart: unless-stopped
     depends_on:
       - klipper
-    restart: unless-stopped
     ports:
       - 7125:7125
     privileged: true
