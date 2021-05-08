@@ -3,30 +3,32 @@ services:
   klipper:
     image: flipper/klipper
     restart: unless-stopped
-    privileged: true
+    # privileged: true
     networks:
       - flipper-app
     volumes:
       - flipper-conf:/config
       - flipper-gcode:/gcode
       - flipper-tmp:/tmp
-      - /dev/serial:/dev/serial
+    devices:
+      - /dev/serial/by-id/usb-Klipper_lpc1769_20F0FF0B28813AAF13826A5CC02000F5-if00
     entrypoint: /docker-entrypoint.sh
   moonraker:
     image: flipper/moonraker
     restart: unless-stopped
+    # privileged: true
     depends_on:
       - klipper
     ports:
       - 7125:7125
-    privileged: true
     networks:
       - flipper-app
     volumes:
       - flipper-conf:/config
       - flipper-gcode:/gcode
       - flipper-tmp:/tmp
-      - /dev/serial:/dev/serial
+    devices:
+      - /dev/serial/by-id/usb-Klipper_lpc1769_20F0FF0B28813AAF13826A5CC02000F5-if00
     entrypoint: /docker-entrypoint.sh
 
   fluidd:
