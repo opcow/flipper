@@ -1,3 +1,5 @@
 html
 fluidd.zip
-.vscode/
+.vscode
+.gitignore
+test.txt
