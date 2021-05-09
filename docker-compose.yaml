@@ -3,7 +3,6 @@ services:
   klipper:
     image: flipper/klipper
     restart: unless-stopped
-    # privileged: true
     networks:
       - flipper-app
     volumes:
@@ -15,8 +14,7 @@ services:
     entrypoint: /docker-entrypoint.sh
   moonraker:
     image: flipper/moonraker
-    restart: unless-stopped
-    # privileged: true
+   restart: unless-stopped
     depends_on:
       - klipper
     ports:
