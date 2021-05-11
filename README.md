@@ -16,3 +16,5 @@ The Fluidd image can be used to run a container on a separate machine from Klipp
     flipper/fluidd
 
 The Raspberry Pi only serves the Fluidd web UI. Files uploaded from Cura or PrusaSlicer via the Fluidd UI at 192.168.3.7 go directly to the AMD64 machine at 192.168.4.9. The Raspberry Pi isn't involved in the handling of gcode files and printing.
+
+mitch.crane@gmail.com
