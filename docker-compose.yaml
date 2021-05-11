@@ -6,36 +6,38 @@ services:
     restart: unless-stopped
     networks:
       - flipper-app
-    volumes:
-      - flipper-home:/home
-      - flipper-conf:/config
-      - flipper-gcode:/gcode
-      - flipper-tmp:/tmp
-    devices:
-      - /dev/serial/by-id/usb-Klipper_lpc1769_20F0FF0B28813AAF13826A5CC02000F5-if00
-  moonraker:
-    image: flipper-moonraker
-    build: ./moonraker
-    restart: unless-stopped
-    depends_on:
-      - klipper
     ports:
       - 7125:7125
-    networks:
-      - flipper-app
-    volumes:
-      - flipper-home:/home
-      - flipper-conf:/config
-      - flipper-gcode:/gcode
-      - flipper-tmp:/tmp
+    # volumes:
+      # - flipper-home:/home
+      # - flipper-conf:/config
+      # - flipper-gcode:/gcode
+      # - flipper-tmp:/tmp
     devices:
       - /dev/serial/by-id/usb-Klipper_lpc1769_20F0FF0B28813AAF13826A5CC02000F5-if00
+  # moonraker:
+  #   image: flipper-moonraker
+  #   build: ./moonraker
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - klipper
+  #   ports:
+  #     - 7125:7125
+  #   networks:
+  #     - flipper-app
+  #   volumes:
+  #     - flipper-home:/home
+  #     - flipper-conf:/config
+  #     - flipper-gcode:/gcode
+  #     - flipper-tmp:/tmp
+  #   devices:
+  #     - /dev/serial/by-id/usb-Klipper_lpc1769_20F0FF0B28813AAF13826A5CC02000F5-if00
 
   fluidd:
     image: flipper-fluidd
     build: ./fluidd
     depends_on:
-      - moonraker
+      - klipper
     restart: unless-stopped
     networks:
       - flipper-app
@@ -48,8 +50,8 @@ networks:
   flipper-app:
     driver: bridge
 
-volumes:
-  flipper-conf:
-  flipper-gcode:
-  flipper-tmp:
-  flipper-home:
+# volumes:
+#   flipper-conf:
+#   flipper-gcode:
+#   flipper-tmp:
+#   flipper-home:
