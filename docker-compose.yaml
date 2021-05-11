@@ -1,20 +1,22 @@
 version: "3"
 services:
   klipper:
-    image: flipper/klipper
+    image: flipper-klipper
+    build: ./klipper
     restart: unless-stopped
     networks:
       - flipper-app
     volumes:
+      - flipper-home:/home
       - flipper-conf:/config
       - flipper-gcode:/gcode
       - flipper-tmp:/tmp
     devices:
       - /dev/serial/by-id/usb-Klipper_lpc1769_20F0FF0B28813AAF13826A5CC02000F5-if00
-    entrypoint: /docker-entrypoint.sh
   moonraker:
-    image: flipper/moonraker
-   restart: unless-stopped
+    image: flipper-moonraker
+    build: ./moonraker
+    restart: unless-stopped
     depends_on:
       - klipper
     ports:
@@ -22,15 +24,16 @@ services:
     networks:
       - flipper-app
     volumes:
+      - flipper-home:/home
       - flipper-conf:/config
       - flipper-gcode:/gcode
       - flipper-tmp:/tmp
     devices:
       - /dev/serial/by-id/usb-Klipper_lpc1769_20F0FF0B28813AAF13826A5CC02000F5-if00
-    entrypoint: /docker-entrypoint.sh
 
   fluidd:
-    image: flipper/fluidd
+    image: flipper-fluidd
+    build: ./fluidd
     depends_on:
       - moonraker
     restart: unless-stopped
@@ -49,3 +52,4 @@ volumes:
   flipper-conf:
   flipper-gcode:
   flipper-tmp:
+  flipper-home:
