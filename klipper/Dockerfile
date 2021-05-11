@@ -18,8 +18,6 @@ RUN chpasswd <<<"${KLIPPER_USER}:render"
 RUN sudo usermod -a -G sudo ${KLIPPER_USER}
 RUN echo "${KLIPPER_USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${KLIPPER_USER}
 
-# RUN sudo apt-get install -y -q ${PKGLIST}
-
 ###### setup klipper ######
 USER ${KLIPPER_USER}
 WORKDIR ${KLIPPER_HOME}
@@ -28,9 +26,6 @@ RUN sudo apt-get install -y -q git && git clone ${KLIPPER_REPO} klipper
 RUN sudo apt-get install -y -q virtualenv python-dev build-essential libffi-dev
 RUN virtualenv -p python2 ${PYTHONDIR}
 RUN ${PYTHONDIR}/bin/pip install -r ${KLIPPER_HOME}/klipper/scripts/klippy-requirements.txt
-RUN printf "#!/bin/bash\n${PYTHONDIR}/bin/python ${KLIPPER_HOME}/klipper/klippy/klippy.py ${CONFIG_PATH}/printer.cfg -l /tmp/klippy.log -a /tmp/klippy_uds\n" > run-klipper.sh
-RUN chmod +x run-klipper.sh
-
 
 # ###### create data directories ######
 USER root
@@ -44,6 +39,6 @@ RUN chown ${KLIPPER_USER}:${KLIPPER_USER} ${GCODE_PATH}
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
-CMD [ "./run-klipper.sh" ]
+CMD ${PYTHONDIR}/bin/python ${KLIPPER_HOME}/klipper/klippy/klippy.py ${CONFIG_PATH}/printer.cfg -l /tmp/klippy.log -a /tmp/klippy_uds
 
 USER ${KLIPPER_USER}

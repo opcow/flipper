@@ -24,8 +24,6 @@ RUN sudo apt-get install -y -q git && git clone ${MOONRAKER_REPO} moonraker
 RUN sudo apt-get install -q -y rsync virtualenv && virtualenv -p /usr/bin/python3 ${PYTHONDIR}
 RUN ln -s /usr/lib/python3/dist-packages/gpiod* ${PYTHONDIR}/lib/python*/site-packages
 RUN ${PYTHONDIR}/bin/pip install -r ${MOONRAKER_HOME}/moonraker/scripts/moonraker-requirements.txt
-RUN printf "#!/bin/sh\n${PYTHONDIR}/bin/python ${MOONRAKER_HOME}/moonraker/moonraker/moonraker.py -c ${CONFIG_PATH}/moonraker.conf\n" > ./run-moonraker.sh
-RUN chmod +x run-moonraker.sh
 COPY --chown=${MOONRAKER_USER}:${MOONRAKER_USER} ./moonraker.conf ./
 
 USER root
@@ -36,7 +34,7 @@ RUN mkdir /usr/share/moonraker && cd ${MOONRAKER_HOME} && tar -czvf /usr/share/m
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
-CMD [ "./run-moonraker.sh" ]
+CMD ${PYTHONDIR}/bin/python ${MOONRAKER_HOME}/moonraker/moonraker/moonraker.py -c ${CONFIG_PATH}/moonraker.conf
 
 USER ${MOONRAKER_USER}
 EXPOSE 7125
