@@ -66,3 +66,10 @@ Run:
 
     $ docker-compose up -d
 ---
+If you break a config file causing the Klipper-Moonraker container to fail to run you could copy a corrected file over like so:
+
+    $ docker run -v flipper_config:/config --name klipper flipper-klipper true
+    $ docker cp ./moonraker.conf klipper:/config/
+    $ docker rm klipper
+
+Alternatively, just delete the config volume and start over.
