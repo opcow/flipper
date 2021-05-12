@@ -9,7 +9,7 @@ services:
     ports:
       - 7125:7125
     devices:
-      - /dev/serial/by-id/usb-Klipper_lpc1769_20F0FF0B28813AAF13826A5CC02000F5-if00
+      - ${PRINTER_DEV}
   fluidd:
     image: flipper-fluidd
     build: ./fluidd
@@ -21,7 +21,7 @@ services:
     ports:
       - 80:80
     environment:
-      - UPSTREAM=192.168.4.9:7125
+      - UPSTREAM=${MR_UPSTREAM}
 
 networks:
   flipper-app:
