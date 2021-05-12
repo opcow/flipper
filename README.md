@@ -4,7 +4,7 @@
 ---
 Built and tested on an AMD64 system. The klipper Dockerfile may need changes to build on ARM systems. 
 
-Use environment variable MR_UPSTREAM to tell Fluidd where Moonraker is. If the variable is unset then it will point to 0.0.0.0:7125.
+The Fluidd container looks for an environment variable UPSTREAM to tell Fluidd where Moonraker is. If the variable is unset then it will be set to `0.0.0.0:7125`. The included docker-compose-yaml sets the name of the klipper container to flipper-k and sets `UPSTREAM=flipper-k:7125`. This should be sufficient to make everything work. If you are using the CLI  to start the containers, see the examples below.
 
 Build the images for docker-compose: `docker-compose build` or `COMPOSE_DOCKER_CLI_BUILD=1 docker-compose build`.
 
@@ -15,7 +15,6 @@ Get flipper
 ---
     $ git clone https://github.com/opcow/flipper.git
     $ cd flipper
-
 
 CLI
 ---
