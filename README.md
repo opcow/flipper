@@ -9,7 +9,7 @@ Use environment variable MR_UPSTREAM to tell Fluidd where Moonraker is. If the v
 Build the images for docker-compose: `docker-compose build` or `COMPOSE_DOCKER_CLI_BUILD=1 docker-compose build`.
 
 
-The following example use my host ip and printer device. 
+The following examples use my host ip and printer device. You will have to copy your printer.cfg and any other needed config files into flipper/klipper/config_files.
 
 Get flipper
 ---
