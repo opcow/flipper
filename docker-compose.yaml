@@ -1,6 +1,7 @@
 version: "3"
 services:
   klipper:
+    container_name: flipper-k
     image: flipper-klipper
     build: ./klipper
     restart: unless-stopped
@@ -13,6 +14,7 @@ services:
     devices:
       - ${PRINTER_DEV}
   fluidd:
+    container_name: flipper-f
     image: flipper-fluidd
     build: ./fluidd
     depends_on:
