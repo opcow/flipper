@@ -4,6 +4,8 @@ services:
     image: flipper-klipper
     build: ./klipper
     restart: unless-stopped
+    volumes:
+      - config:/config
     networks:
       - flipper-app
     ports:
@@ -26,3 +28,6 @@ services:
 networks:
   flipper-app:
     driver: bridge
+
+volumes:
+  config:
