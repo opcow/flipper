@@ -44,5 +44,9 @@ COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
+COPY ./reboot.sh /usr/local/sbin/systemctl
+COPY ./reboot.sh /usr/local/sbin/shutdown
+RUN chmod +x /usr/local/sbin/systemctl /usr/local/sbin/shutdown
+
 USER ${KLIPPER_USER}
 EXPOSE 7125
