@@ -44,6 +44,7 @@ COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
+###### fake systemctl and shutdown will just signal SIGTERM to pid 1 ######
 COPY ./reboot.sh /usr/local/sbin/systemctl
 COPY ./reboot.sh /usr/local/sbin/shutdown
 RUN chmod +x /usr/local/sbin/systemctl /usr/local/sbin/shutdown
