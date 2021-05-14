@@ -1,2 +1,2 @@
-#!/bin/bash
-kill -n 15 1
+#!/bin/sh
+kill -15 1
